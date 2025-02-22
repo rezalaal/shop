@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'id' => Str::uuid(), 
             'name' => $this->faker->name(),
             'mobile' => $this->faker->phoneNumber(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => $this->faker->boolean() ? $this->faker->dateTime() : null,
             'password' => bcrypt('password'),
             'seller' => $this->faker->boolean(),

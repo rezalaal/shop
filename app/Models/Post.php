@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasFormattedCreatedAt;
+use App\Traits\HasFormattedCreatedAt;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -13,13 +14,13 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
     use HasSlug;
+    use HasUuids;
     use HasFormattedCreatedAt;
 
     protected $fillable=[
         'title',
         'body',
         'type',
-        'file',
         'score',
         'status',
         'showcase',
