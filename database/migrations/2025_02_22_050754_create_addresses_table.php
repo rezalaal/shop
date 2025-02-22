@@ -18,22 +18,27 @@ return new class extends Migration
             $table->string('name', 50);
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
-            $table->string('state', 50);
-            $table->string('city', 50);
+            $table->unsignedBigInteger('city_id');
             $table->boolean('plaque');
             $table->smallInteger('unit')->nullable();
             $table->string('number', 11);
             $table->boolean('status')->default(0);
             $table->timestamps();
+
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
         
         Schema::create('addressables', function (Blueprint $table) {
-            $table->unsignedBigInteger('address_id');
-            $table->morphs('addressable');
+            $table->id(); // اضافه کردن یک کلید اصلی
+            $table->unsignedBigInteger('address_id'); // اضافه کردن address_id
+            $table->unsignedBigInteger('addressable_id'); // اضافه کردن addressable_id
+            $table->string('addressable_type'); // اضافه کردن addressable_type
             $table->timestamps();
         
+            // تعریف کلیدهای خارجی
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
-        });
+            $table->foreign('addressable_id')->references('id')->on('users')->onDelete('cascade');
+        });   
         
     }
 

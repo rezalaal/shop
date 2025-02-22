@@ -17,24 +17,41 @@ class Address extends Model
         'latitude',
         'longitude',
         'status',
-        'state',
-        'city',
+        'city_id',
         'plaque',
         'unit',
         'number',
     ];
 
+    protected $casts = [
+        'latitude' => 'float',
+        'longitude' => 'float',
+        'status' => 'boolean',
+        'plaque' => 'boolean',
+    ];
+
+    protected $attributes = [
+        'status' => false,
+        'plaque' => false,
+    ];
+    
+
     public function user()
     {
-        return $this->morphToMany(User::class, 'addressables');
-    }
-    public function pay()
-    {
-        return $this->morphToMany(Pay::class, 'addressables');
-    }
-    public function payMeta()
-    {
-        return $this->morphToMany(Pay::class, 'addressables');
+        return $this->morphToMany(User::class, 'addressable', 'addressables', 'address_id', 'addressable_id');
     }
 
+
+
+
+    public function pay()
+    {
+        return $this->morphToMany(Pay::class, 'addressable');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+    
 }

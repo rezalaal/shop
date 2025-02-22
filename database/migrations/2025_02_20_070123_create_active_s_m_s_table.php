@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('active_sms', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('expire');
+            $table->timestamp('expire');
             $table->char('code', 6);
             $table->string('phone', 15)->index();
             $table->timestamps();
+
+            $table->index('expire');
         });
     }
 
