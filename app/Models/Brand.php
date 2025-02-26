@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasFormattedCreatedAt;
+use App\Traits\HasFormattedCreatedAt;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -10,13 +10,12 @@ use Spatie\Sluggable\SlugOptions;
 
 class Brand extends Model
 {
-    /** @use HasFactory<\Database\Factories\BrandFactory> */
     use HasFactory;
-    use HasSlug;
+    use HasSlug;    
     use HasFormattedCreatedAt;
 
     protected $fillable=[
-        'name', 'image', 'slug'
+        'name', 'slug'
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -27,12 +26,13 @@ class Brand extends Model
             ->usingLanguage('fa');
     }
 
-    public function user()
+    public function users()
     {
-        return $this->morphToMany(User::class, 'brandables');
+        return $this->morphToMany(User::class, 'brandable', 'brandables', 'brand_id', 'brandable_id');
     }
-    public function post()
+
+    public function posts()
     {
-        return $this->morphedByMany(Post::class, 'brandables');
+        return $this->morphToMany(Post::class, 'brandable', 'brandables', 'brand_id', 'brandable_id');
     }
 }

@@ -12,22 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carriers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->name();
+            $table->uuid('id')->primary();
+            $table->string('name');
             $table->bigInteger('price');
             $table->string('city')->nullable();
             $table->integer('limit')->nullable();
             $table->timestamps();            
         });
         
-        Schema::create('carriables', function (Blueprint $table) {
-            $table->unsignedBigInteger('carrier_id'); 
-            $table->unsignedBigInteger('carriables_id');
+        Schema::create('carrierables', function (Blueprint $table) {
+            $table->uuid('carrier_id');
+            $table->uuid('carriables_id');
             $table->string('carriables_type');
             $table->primary(['carrier_id', 'carriables_id', 'carriables_type']);
             $table->index(['carrier_id', 'carriables_id', 'carriables_type']);
             $table->foreign('carrier_id')->references('id')->on('carriers')->onDelete('cascade');
         });
+        
         
     }
 

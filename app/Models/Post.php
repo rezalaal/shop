@@ -17,6 +17,10 @@ class Post extends Model
     use HasUuids;
     use HasFormattedCreatedAt;
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+
     protected $fillable=[
         'title',
         'body',

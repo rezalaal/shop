@@ -29,13 +29,12 @@ return new class extends Migration
         });
         
         Schema::create('addressables', function (Blueprint $table) {
-            $table->id(); // اضافه کردن یک کلید اصلی
-            $table->unsignedBigInteger('address_id'); // اضافه کردن address_id
-            $table->unsignedBigInteger('addressable_id'); // اضافه کردن addressable_id
-            $table->string('addressable_type'); // اضافه کردن addressable_type
+            $table->id();
+            $table->unsignedBigInteger('address_id');
+            $table->unsignedBigInteger('addressable_id');
+            $table->string('addressable_type');
             $table->timestamps();
         
-            // تعریف کلیدهای خارجی
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
             $table->foreign('addressable_id')->references('id')->on('users')->onDelete('cascade');
         });   

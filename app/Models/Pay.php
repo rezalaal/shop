@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasFormattedCreatedAt;
+use App\Traits\HasFormattedCreatedAt;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +11,9 @@ class Pay extends Model
     /** @use HasFactory<\Database\Factories\PayFactory> */
     use HasFactory;
     use HasFormattedCreatedAt;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable=[
         'auth',
